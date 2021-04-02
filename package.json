@@ -1,0 +1,19 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/INFO-GROUP-2021/INFOPROJECT2021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/INFO-GROUP-2021/INFOPROJECT2021/issues"
+  },
+  "homepage": "https://github.com/INFO-GROUP-2021/INFOPROJECT2021#readme"
+}
