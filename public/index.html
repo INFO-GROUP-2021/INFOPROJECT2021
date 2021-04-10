@@ -10,36 +10,37 @@
          box-sizing: border-box;
         }
         body{
-          background-color: rgb(27, 27, 27);
+          background-color:white;
             display: flex;
             flex-direction: column;
         }
-        ul{
+        li{
           list-style-type: none;
         }
         table{
-          background-color: rgb(27, 27, 27);
-          color:white;
+          background-color:white;
+          
         }
       </style>
     <body>
 
-        <nav class="card-title ">
+        <nav class = "row black" id ="navi">
           <li>
-            <ul><a href="index.html">Home </a></ul>
-            <ul><a href="login.html"><ul> Login</a></ul>
+            <ul class="col s1"><a href="index.html"> Home </a></ul>
+            <ul class="col s1"><a href="learn.html"> Learn</a></ul>
+            <ul class="col s1"><a href= "search.html"> Search</a></ul>
           </li>
+          <input class="col s1" type="text">
         </nav>
 
         <div class= "container">
             <div class="row">
               <div class="col s9">
-
               <div class = "card-title transparent">
-                <h2><span= style="color: white">Leaderboards</span></h2> 
-                <button onclick="getLeaderBoards('battle','wwii')"> PC </button>
-                <button onclick="getLeaderBoards('psn','wwii')"> PS4 </button>
-                <button onclick="getLeaderBoards('xbl','wwii')"> xbox</button>
+                <h2>Leaderboards</span></h2> 
+                <button onclick="getLeaderBoards('battle','mw')"> PC </button>
+                <button onclick="getLeaderBoards('psn','mw')"> PS4 </button>
+                <button onclick="getLeaderBoards('xbl','mw')"> xbox</button>
                 <table>
                       <thead>
                         <th>Rank</th>
@@ -72,5 +73,10 @@
      
       <script type="text/javascript" src="js/materialize.min.js"></script>
       
-    </body>
+    <footer class ="row black">
+
+    </footer>
+    
+      </body>
+
     </html>

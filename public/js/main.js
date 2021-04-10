@@ -1,4 +1,29 @@
-document.onload = getLeaderBoards('battle','bo4');
+document.onload = getLeaderBoards('battle','mw');
+
+async function navigate(title, url){
+  document.title = title;
+  let content = document.querySelector('#content');
+  if(url === null){
+    content.innerHTML = "";
+  }else{
+    let response = await fetch(url);
+    content.innerHTML = await response.text();
+    executeScripts();
+  }
+}
+
+function handleClick(event){
+  event.preventDefault();
+  event.stopPropagation();
+  let a = event.target;
+  let text = a.text; 
+  let url = a.href;
+  //history.pushState({title:text, url: url}, null, a.href);
+  navigate(a.text, a.href);
+}
+
+const navi = document.querySelector('#navi');
+  navi.addEventListener('click', handleClick, false);
 
 async function getLeaderBoards(platform,game){
   let URL = "https://www.callofduty.com/api/papi-client/leaderboards/v2/title/" + game + "/platform/"+ platform+"/time/alltime/type/core/mode/career/page/1";
@@ -16,6 +41,8 @@ async function getLeaderBoards(platform,game){
   
    displayLeaderBoard(info);
 }
+
+
 
 function displayLeaderBoard(data){
   let results = document.querySelector('#insertBoard');
@@ -74,27 +101,51 @@ fetch(URL, requestOptions)
    console.log(info);
 }
 
-async function getCSRFToken(){
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      };
-      
-      fetch("https://s.activision.com/activision/login", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+
+async function getCSRFToken(username, password){
+  var requestOptions = {
+    method: 'GET',
+    Header:{
+      'Accept': '*/*',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Connection':'keep-alive',
+      'Cache-Control' :'no-cache, no-store, must-revalidate', 
+		  'Pragma': 'no-cache',
+		  'Expires': '0'
+    },
+    redirect: 'follow'
+  };
+
+    let token ='';
+
+  fetch("https://s.activision.com/activision/login", requestOptions)
+  .then(response => response.text())
+  .then(result =>  {
+    console.log(result.search('name="_csrf" value="'))
+    var index = result.search('name="_csrf" value="') + 20;
+    if(index !== -1){
+      for(var i = index; i < index+64 ;i++){
+      token += result.charAt(i);
+      }
+    }
+     login(username, password,token)
+    })
+  
+  .catch(error => console.log('error', error));
 }
 
-function login(username, password){
+function login(username, password, token){
     var myHeaders = new Headers();
-    myHeaders.append("Cookie", "XSRF-TOKEN=Set by test scripts; new_SiteId=activision;");
-    
+    myHeaders.append("Cookie", "XSRF-TOKEN = "+token +"; new_SiteId = activision;");
+
+    for (var pair of myHeaders.entries()) {
+      console.log(pair[0]+ ': '+ pair[1]);
+   }
     var urlencoded = new URLSearchParams();
-    urlencoded.append("username", "Your login email for callofduty.com");
-    urlencoded.append("password", "Your login password for callofduty.com");
+    urlencoded.append(username,"Your login email for callofduty.com");
+    urlencoded.append(password,"Your login password for callofduty.com");
     urlencoded.append("remember_me", "true");
-    urlencoded.append("_csrf", "Set by test scripts");
+    urlencoded.append("_csrf", token);
     
     var requestOptions = {
       method: 'POST',
