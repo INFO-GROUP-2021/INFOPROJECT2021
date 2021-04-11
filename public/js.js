@@ -76,8 +76,6 @@
               </thead>
               <tr>
                 <td>Current Temperture: ${data.current.temp} C</td>
-              </tr>
-              <tr>
                 <td>Feels Like: ${data.current.feels_like} C</td>
               </tr>
 
