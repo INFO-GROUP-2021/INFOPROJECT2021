@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <div class="row">
+          <input type="button"  id="locateBtn" class="waves-effect waves-light btn blue darken-3" value="Get Location">
+    </div>
+      
+    <script>
+        
+        const API_KEY = "1d611e5252ee50d950f35b8c75d928fc";
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+          };
+        
+          async function success(pos) {
+            var crd = pos.coords;
+            let URL = "https://api.openweathermap.org/data/2.5/weather?lat="+crd.latitude+"&lon="+crd.longitude+"&appid="+API_KEY;
+
+            let response = await fetch(URL);
+            let data = await response.json();
+            console.log(data);
+          }
+        
+          function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+          }
+        
+          function locate(){
+            navigator.geolocation.getCurrentPosition(success, error, options);
+          }
+        
+          document.querySelector('#locateBtn').addEventListener('click', locate);
+    </script>
+
+</html>
+       
