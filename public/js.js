@@ -121,7 +121,6 @@
                 <td>Feels Like: ${data.feels_like} C</td>
                 <td> UV Index ${data.uvi}  </td> 
               </tr>
-            `
                 <td> UV Index ${data.uvi}</td>   
               </tr>
            `
