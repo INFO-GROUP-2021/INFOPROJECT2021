@@ -1,6 +1,4 @@
 
-    document.onload(navigate('Get Daily Weather','displayWeather'));
-
         function executeScripts(){
                 let script = document.querySelector('script').innerText;
                 try{
