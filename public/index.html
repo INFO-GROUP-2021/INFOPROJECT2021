@@ -22,21 +22,74 @@
         }
       </style>
     <body class = "container blue darken-4">
-
-        <nav class = "row black" id ="navi">
-          <li>
-
-            <ul class="col s1"><a href="displayWeather.html"> Weather </a></ul>
-
-          </li>
-         
-        </nav>
-
-        <div id ="content">
-            
+          <nav class = "nav-extended">
+            <div class ="nav-wrapper transparent">
+              <a href ="#" class ="brand-logo">Weather Forcast</a>
+          </nav>
         </div>
 
-<script src="js.js"></script>
+
+
+        <section class = "section">
+           <div class="col pull-s6">
+            <input type ="text" name="searchBar" id="searchBar" placeholder="Search By City"/>
+            <input type ="button" value = "Seach By City"/>
+            <input type="button"  id="locateBtn" class="waves-effect waves-light btn blue darken-3" value="Get Location">
+            </div>
+        </section>
+        
+   <div class="nav-content">
+          <ul class="tabs tabs-transparent">
+            <li class="tab"><a class="active" href="#current">Current Weather</a></li>
+            <li class="tab"><a href="#24hr">24-Hours</a></li>
+            <li class="tab"><a href="#7days">7-Day Forcast</a></li>
+          </ul>
+        </div>
+       
+
+        <section id="current" class = "col s12 container">
+            <table class ="col s12">
+                    <tbody id = "results">
+                      
+                    </tbody>
+              
+                  </table>
+
+                  
+
+        </section>
+
+        <section id="24hr" class = "col s12 container">
+          <table class ="col s12">
+                  <tbody id = "results-24">
+                    
+                  </tbody>
+            
+                </table>
+                <div>
+                  <canvas id="myChart"></canvas>
+                </div>
+
+      </section>
+
+      <section id="7days" class = "col s12 container">
+        <table class ="col s12">
+                <tbody id = "results-7D">
+                  
+                </tbody>
+          
+              </table>
+
+    </section>
+     
+  
+      <script type = "text/javascript" src ="current_city_list.json"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        
+      <script src="js.js"></script>
+  
+        </div>
         </body>
         </html>
 
