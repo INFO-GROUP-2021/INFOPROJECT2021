@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+    <div class="row">
+          <input type ="text" name="searchBar" id="searchBar" placeholder="Search By City"/>
+          <input type ="button"> Search by City
+          <input type="button"  id="locateBtn" class="waves-effect waves-light btn blue darken-3" value="Get Location">
+    </div>
+
+    <table class ="col s6">
+      <thead>
+
+      </thead>
+      <tbody id = "results">
+        
+      </tbody>
+
+    </table>
+
+    <script type = "text/javascript" src ="current_city_list.json"></script>
+
+
+      
+    <script>
+        
+        const API_KEY = "1d611e5252ee50d950f35b8c75d928fc";
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+          };
+        
+          async function success(pos) {
+            var crd = pos.coords;
+            let URL = "https://api.openweathermap.org/data/2.5/weather?lat="+crd.latitude+"&lon="+crd.longitude+"&units=metric&appid="+API_KEY;
+
+            let response = await fetch(URL);
+            let data = await response.json();
+            console.log(data);
+            displayWeather(data);
+          }
+
+          async function searchBy(){
+            let myData = JSON.parse(name)
+              console.log(myData);
+          }
+
+          function displayWeather(data){
+            searchBy();
+            let mani = document.querySelector("#results");
+
+            let d = new Date(data.sys.sunrise * 1000).toLocaleTimeString("en-US");
+        
+            let d2 =  new Date(data.sys.sunset * 1000).toLocaleTimeString("en-US");    
+
+            mani.innerHTML += ` 
+            <tr>
+              <td>Location: ${data.name},${data.sys.country}</td>
+            </tr>
+            <tr>
+              <td>Longditute: ${data.coord.lon}</td>
+              <td>Latitude: ${data.coord.lat}</td>
+            </tr>
+              <tr>
+                  <td>Currently ${data.weather[0].description}  
+              </tr>
+            <tr>
+              <td>Current Temperture: ${data.main.temp} C</td>
+            </tr>
+            <tr>
+              <td>Feels Like: ${data.main.feels_like} C</td>
+            </tr>
+            <tr>
+              <td>Humidity: ${data.main.humidity}</td>
+            </tr>
+            <tr>
+              <td>Sunrise: ${d}</td>
+            </tr>
+            <tr>
+              <td>Sunset: ${d2}</td>
+            </tr>  
+            `
+          }
+        
+          function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+          }
+        
+          function locate(){
+            navigator.geolocation.getCurrentPosition(success, error, options);
+          }
+        
+          document.querySelector('#locateBtn').addEventListener('click', locate);
+    </script>
+
+</html>
+       
