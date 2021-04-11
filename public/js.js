@@ -39,7 +39,7 @@
                 redirect: 'follow',
                 body: JSON.stringify(data)
               };
-              const returnCityData = await fetch('https://finalproject-64099.web.app/current_city_list.json',getData)
+              const returnCityData = await fetch('current_city_list.json',getData)
               const myData = await returnCityData;
               console.log(myData);
             }
