@@ -76,8 +76,6 @@
               </thead>
               <tr>
                 <td>Current Temperture: ${data.current.temp} C</td>
-              </tr>
-              <tr>
                 <td>Feels Like: ${data.current.feels_like} C</td>
               </tr>
 
@@ -121,9 +119,15 @@
               <tr>
                 <td>Current Temperture: ${data.temp} C</td>
                 <td>Feels Like: ${data.feels_like} C</td>
+<<<<<<< HEAD
                 <td> UV Index ${data.uvi}  </td> 
               </tr>
             `
+=======
+                <td> UV Index ${data.uvi}</td>   
+              </tr>
+           `
+>>>>>>> 3a472cf6b9249d6a7bf46d9ac95d3ed9fbf897dc
             }
           
             //createChart(datas);
@@ -161,7 +165,6 @@
                   <td> Evening ${d.temp.night}</td>
                   <td> Night ${d.temp.eve}</td>
                   </tr>
-                  
                   </tr>
                 `
               }
