@@ -1,5 +1,15 @@
-const tabs = M.Tabs.init(document.querySelector('.tabs'));
+          const tabs = M.Tabs.init(document.querySelector('.tabs'));
           const API_KEY = "1d611e5252ee50d950f35b8c75d928fc";
+
+          
+
+        const SearchBar = document.getElementById('searchBar');
+        SearchBar.addEventListener('keyup', (e)=> {
+          var searchString = e.target.value;
+          //searchBy(searchString);
+          console.log(searchString);
+        });
+
           var options = {
               enableHighAccuracy: true,
               timeout: 5000,
@@ -9,7 +19,7 @@ const tabs = M.Tabs.init(document.querySelector('.tabs'));
             async function success(pos) {
               var crd = pos.coords;
   
-              let URL = "https://api.openweathermap.org/data/2.5/onecall?lat="+crd.latitude+"&lon="+crd.longitude+"&units=metric&exclude =alerts,minutely&appid="+API_KEY;
+              let URL = "https://api.openweathermap.org/data/2.5/onecall?lat="+crd.latitude+"&lon="+crd.longitude+"&exclude =alerts,minutely&units=metric&appid="+API_KEY;
   
               let response = await fetch(URL);
               let data = await response.json();
@@ -19,10 +29,23 @@ const tabs = M.Tabs.init(document.querySelector('.tabs'));
   
             
   
-            async function searchBy(){
-              let myData = JSON.parse(name)
-                console.log(myData);
+            async function initSearch(){
+              var myHeaders = new Headers();
+              let data;
+              const getData ={
+                method:'GET',
+                headers: myHeaders,
+                mode: 'no-cors',
+                redirect: 'follow',
+                body: JSON.stringify(data)
+              };
+              const returnCityData = await fetch('https://finalproject-64099.web.app/current_city_list.json',getData)
+              const myData = await returnCityData;
+              console.log(myData);
             }
+
+            initSearch();
+
   
             function displayWeather(data){
               let mani = document.querySelector("#results");
