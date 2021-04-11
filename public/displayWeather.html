@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 
     <div class="row">
           <input type ="text" name="searchBar" id="searchBar" placeholder="Search By City"/>
@@ -20,6 +21,11 @@
     <script type = "text/javascript" src ="current_city_list.json"></script>
 
 
+=======
+    <div class="row">
+          <input type="button"  id="locateBtn" class="waves-effect waves-light btn blue darken-3" value="Get Location">
+    </div>
+>>>>>>> 025f52ba9450422d1f51476cfbc5ac504e350168
       
     <script>
         
@@ -32,11 +38,16 @@
         
           async function success(pos) {
             var crd = pos.coords;
+<<<<<<< HEAD
             let URL = "https://api.openweathermap.org/data/2.5/weather?lat="+crd.latitude+"&lon="+crd.longitude+"&units=metric&appid="+API_KEY;
+=======
+            let URL = "https://api.openweathermap.org/data/2.5/weather?lat="+crd.latitude+"&lon="+crd.longitude+"&appid="+API_KEY;
+>>>>>>> 025f52ba9450422d1f51476cfbc5ac504e350168
 
             let response = await fetch(URL);
             let data = await response.json();
             console.log(data);
+<<<<<<< HEAD
             displayWeather(data);
           }
 
@@ -80,6 +91,8 @@
               <td>Sunset: ${d2}</td>
             </tr>  
             `
+=======
+>>>>>>> 025f52ba9450422d1f51476cfbc5ac504e350168
           }
         
           function error(err) {
