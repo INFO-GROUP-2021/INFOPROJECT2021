@@ -1,8 +1,7 @@
 
-<<<<<<< HEAD
-    document.onload(navigate('Get Daily Weather','displayWeather'));
-=======
->>>>>>> 025f52ba9450422d1f51476cfbc5ac504e350168
+    document.onload(navigate('Get Daily Weather','displayWeather.html'));
+
+
         function executeScripts(){
                 let script = document.querySelector('script').innerText;
                 try{
