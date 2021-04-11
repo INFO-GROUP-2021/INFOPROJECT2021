@@ -18,11 +18,6 @@
     </table>
 
     <script type = "text/javascript" src ="current_city_list.json"></script>
-
-
-    <div class="row">
-          <input type="button"  id="locateBtn" class="waves-effect waves-light btn blue darken-3" value="Get Location">
-    </div>
       
     <script>
         
@@ -38,9 +33,6 @@
 
             let URL = "https://api.openweathermap.org/data/2.5/weather?lat="+crd.latitude+"&lon="+crd.longitude+"&units=metric&appid="+API_KEY;
 
-            let URL = "https://api.openweathermap.org/data/2.5/weather?lat="+crd.latitude+"&lon="+crd.longitude+"&appid="+API_KEY;
-
-
             let response = await fetch(URL);
             let data = await response.json();
             console.log(data);
@@ -53,7 +45,6 @@
           }
 
           function displayWeather(data){
-            searchBy();
             let mani = document.querySelector("#results");
 
             let d = new Date(data.sys.sunrise * 1000).toLocaleTimeString("en-US");
