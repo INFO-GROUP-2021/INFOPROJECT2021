@@ -96,7 +96,6 @@
 
             function display24(passed){
               datas = passed.hourly;
-              let i = 1;
               let mani = document.querySelector("#results-24");
               mani.innerHTML='';
               for(let data of datas){
@@ -122,10 +121,9 @@
               <tr>
                 <td>Current Temperture: ${data.temp} C</td>
                 <td>Feels Like: ${data.feels_like} C</td>
-                <td> UV Index ${data.uvi}   
+                <td> UV Index ${data.uvi}</td>   
               </tr>
-            `
-            i = i+ 1;
+           `
             }
           
             //createChart(datas);
@@ -163,7 +161,6 @@
                   <td> Evening ${d.temp.night}</td>
                   <td> Night ${d.temp.eve}</td>
                   </tr>
-                  
                   </tr>
                 `
               }
