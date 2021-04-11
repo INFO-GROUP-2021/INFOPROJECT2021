@@ -9,17 +9,30 @@
        *{
          box-sizing: border-box;
         }
-        body{
-            display: flex;
-            flex-direction: column;
-        }
+        
         li{
           list-style-type: none;
         }
         table{
           background-color:white;
-          
         }
+          @media screen and (max-width: 600px) {
+          header, footer{
+          grid-column: span 1;
+          }
+
+          body{
+            display: flex;
+            flex-direction: column;
+            grid-template-rows: 1fr 2fr 6fr 1fr;
+            grid-template-columns: auto;
+        }
+
+      .card{
+    grid-column: span 2;
+        }
+}     
+          
       </style>
     <body class = "container blue darken-4">
           <nav class = "nav-extended">
@@ -73,11 +86,7 @@
       </section>
 
       <section id="7days" class = "col s12 container">
-        <table class ="col s12">
-                <tbody id = "results-7D">
-                  
-                </tbody>
-          
+        <table class ="col s12" id = "results-7D">
               </table>
 
     </section>
