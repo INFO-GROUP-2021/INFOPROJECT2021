@@ -54,10 +54,10 @@
                 </li>
               <li>
             <div class="collapsible-header">
-              <h6>Temperture</h6>
+              <h6>Temperature</h6>
             </div>
               <div class="collapsible-body white">
-                <p>Current Temperture: ${data.current.temp} C</p>
+                <p>Current Temperature: ${data.current.temp} C</p>
                 <p>Feels Like: ${data.current.feels_like} C</p>
             </div>
             </li>
@@ -98,8 +98,8 @@
                 <p>Humidity: ${data.humidity}</p>  
                 <p> Probability of Rain ${data.pop*100}%</p>
                 <p> Wind Speed ${data.wind_speed}</p>
-                <h4>Temperture</h4>
-                <p>Current Temperture: ${data.temp} C</p>
+                <h4>Temperature</h4>
+                <p>Current Temperature: ${data.temp} C</p>
                 <p>Feels Like: ${data.feels_like} C</p>
                 <p> UV Index ${data.uvi}  </p> 
               </div>
@@ -135,7 +135,7 @@
                   <p> Sunrise: ${d1}</p>
                   <p>Sunset:  ${d2}</p>
                   <p> UV Index: ${d.uvi}</p>
-                  <h3>Tempertures</h3>
+                  <h3>Temperatures</h3>
                   <p> Morning Temp ${d.temp.morn}</p>
                   <p> Mid-day Temp ${d.temp.day}</p>
                   <p> Evening ${d.temp.night}</p>
