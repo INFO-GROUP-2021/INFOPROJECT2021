@@ -80,11 +80,12 @@
 
             function display24(passed){
               datas = passed.hourly;
+              let d = '';
               let mani = document.querySelector("#results-24");
               mani.innerHTML='';
               var i = 0;
               for(let data of datas){
-                let d = new Date(data.dt * 1000).toLocaleTimeString("en-US");
+                d = new Date(data.dt * 1000).toLocaleTimeString("en-US");
               mani.innerHTML += ` 
               <li>
               <div class="collapsible-header">
@@ -105,7 +106,6 @@
             </li>
            `
             }
-          
             
             display7Day(passed);
           }
