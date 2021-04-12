@@ -54,7 +54,7 @@
                 </li>
               <li>
             <div class="collapsible-header">
-              <h6>Temperture</h6>
+              <h6>Temperature</h6>
             </div>
               <div class="collapsible-body white">
                 <p>Current Temperature: ${data.current.temp} C</p>
@@ -99,7 +99,7 @@
                 <p> Probability of Rain ${data.pop*100}%</p>
                 <p> Wind Speed ${data.wind_speed}</p>
                 <h4>Temperature</h4>
-                <p>Current Temperture: ${data.temp} C</p>
+                <p>Current Temperature: ${data.temp} C</p>
                 <p>Feels Like: ${data.feels_like} C</p>
                 <p> UV Index ${data.uvi}  </p> 
               </div>
