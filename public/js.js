@@ -103,8 +103,7 @@
                 <p> UV Index ${data.uvi}  </p> 
               </div>
             </li>
-           `;
-           i = i + 1;
+           `
             }
           
             
@@ -143,9 +142,8 @@
                   <p> Night ${d.temp.eve}</p>
                   </div>
                   </li>
-                `
+                `;
                 today.setDate(today.getDate() +1);
-                
               }
 
           }
