@@ -5,6 +5,7 @@
             const elems = document.querySelectorAll('.collapsible');
             const instances = M.Collapsible.init(elems, options);
           });
+          var passBack = "";
 
           var options = {
               enableHighAccuracy: true,
@@ -14,16 +15,26 @@
           
             async function success(pos) {
               var crd = pos.coords;
-  
+              reverseLookup(crd);
               let URL = "https://api.openweathermap.org/data/2.5/onecall?lat="+crd.latitude+"&lon="+crd.longitude+"&exclude =alerts,minutely&units=metric&appid="+API_KEY;
-  
-          let response = await fetch(URL);
+              let response = await fetch(URL);
               let data = await response.json();
-              console.log(data);
               displayWeather(data);
             }
-  
 
+            async function reverseLookup(crd){
+              var API_KEY2 = "pk.e34c1833ce4d63ee886cb101d24aa0f1";
+              let URL = "https://us1.locationiq.com/v1/reverse.php?key="+API_KEY2+"&lat="+ crd.latitude+"&lon="+crd.longitude+"&format=json"
+              let response = await fetch(URL);
+              let data = await response.json();
+              returnReverseLookup(data);
+            }
+      
+  
+            function returnReverseLookup(data){
+              console.log(data);
+              passBack =  data.address.city +", "+ data.address.country;;
+            }
   
             function displayWeather(data){
               let mani = document.querySelector("#results");
@@ -36,6 +47,7 @@
                 <h6>Location</h6>
               </div>
               <div class="collapsible-body white">
+                <p> Location:  ${passBack}</p>
                 <p> Longditute: ${data.lon} </p>
                 <p>Latitude: ${data.lat}</p>
               </div>
@@ -113,7 +125,9 @@
 
           function display7Day(passed){
             data = passed.daily;
-            createChart(data);
+            createChartProb(data);
+            createChartMinMax(data);
+            createChartCloud(data);
             let mani = document.querySelector("#results-7D");
               mani. innerHTML = '';
               let today = new Date();
@@ -161,26 +175,23 @@
             document.querySelector('#locateBtn').addEventListener('click', locate);
         
      
-            function createChart(datas){
+            function createChartProb(datas){
 
               const labels = [
-               '10', '20', '30', '40', '50','60','70', '80', '90','100'
+              'Sunday','Monday','Tuesday','Wednesday', 'Thursday','Friday', 'Saturday'
               ];
-              let result = 0;
-
-          for (let d of datas){
-                result += (d.day + d.night + d.eve+ d.morning)/7;
-              }
-              console.log(result);
-
+              
               const data = {
                 labels: labels,
                 datasets: [{
-              label: 'Proibility of Perciptaion ',
-                  backgroundColor: 'rgba(0,0,0,1)',
-                  pointHoverBackgroundColor: 'rgba(255,255,255,1)',
-                  borderColor: 'rgba(0,0,0,1)',
-                  data : result}]};
+              label: 'Probability of Rain (%)',
+                  backgroundColor: 'rgba(244, 208, 63, 0.5)',
+                  fill: true,
+                  borderColor: 'rgba(244, 208, 63, 0.8)',
+                  data : [datas[0].pop * 100,datas[1].pop *100 ,
+                  datas[2].pop *100, datas[3].pop *100,
+                  datas[4].pop *100,datas[5].pop * 100,
+                  datas[6].pop * 100]}]};
 
               const config = {
                 type: 'line',
@@ -194,6 +205,86 @@
               );
 
             }
+
+            function createChartMinMax(datas){
+              var ctx = document.getElementById('myChart2').getContext('2d');
+              const data = {
+                
+                labels : [
+                  'Sunday','Monday','Tuesday','Wednesday', 'Thursday','Friday', 'Saturday'
+                  ],
+                  datasets:[{
+                    type:'line',
+                    label:'min temp', backgroundColor:'rgba(217, 30, 24, 1)',
+                    borderColor:'rgba(217, 30, 24, 1)',
+                    data : [datas[0].temp.min,datas[1].temp.min,
+                  datas[2].temp.min, datas[3].temp.min,
+                  datas[4].temp.min,datas[5].temp.min,
+                  datas[6].temp.min]
+                  },{
+                    type:'line',
+                    label:'max temp',
+                    backgroundColor: 'rgba(44, 130, 201, 1)',
+                    borderColor:'rgba(44, 130, 201, 1)',
+                    data : [datas[0].temp.max,datas[1].temp.max,
+                  datas[2].temp.max, datas[3].temp.max,
+                  datas[4].temp.max,datas[5].temp.max,
+                  datas[6].temp.max]
+                  }],
+
+              };
+
+              const config = {
+                type: 'scatter',
+                data: data,
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+                }
+              };
+              
+              var myChart = new Chart(ctx,{
+                data:data
+                ,options:{}
+                },
+              config
+              );
+            }
+
+            function createChartCloud(datas){
+
+              const labels = [
+              'Sunday','Monday','Tuesday','Wednesday', 'Thursday','Friday', 'Saturday'
+              ];
+              
+              const data = {
+                labels: labels,
+                datasets: [{
+              label: 'Cloudness (%)',
+                  backgroundColor: 'rgba(34, 167, 240, 0.5)',
+                  fill: true,
+                  borderColor: 'rgba(34, 167, 240, 1)',
+                  data : [datas[0].clouds,datas[1].clouds ,
+                  datas[2].clouds, datas[3].clouds,
+                  datas[4].clouds,datas[5].clouds,
+                  datas[6].clouds]}]};
+
+              const config = {
+                type: 'bar',
+                data: data,
+                options: {}
+              };
+              
+              var myChart = new Chart(
+              document.getElementById('myChart3'),
+               config
+              );
+
+            }
+
 
         
        
