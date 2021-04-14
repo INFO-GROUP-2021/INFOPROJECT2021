@@ -39,7 +39,7 @@
             };
 
             async function lookUpByCity(city,country){
-                  let URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city+"&appid="+API_KEY;
+                  let URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city+","+country+"&appid="+API_KEY;
                   let response = await fetch(URL);
                   let data = await response.json();
                   reverseLookup2(data.coord); 
