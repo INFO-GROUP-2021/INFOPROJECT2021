@@ -84,7 +84,7 @@
   
              function returnReverseLookup(data){
               console.log(data);
-              if(data.address.city === null){
+              if(data.address.city === ""){
                 passBack =  data.address.town +", "+ data.address.country;
               }
               else{
