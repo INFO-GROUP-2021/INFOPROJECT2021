@@ -5,6 +5,31 @@
             const elems = document.querySelectorAll('.collapsible');
             const instances = M.Collapsible.init(elems, options);
           });
+
+          var loaded = false;
+
+          var returnChart1;
+          var returnChart2;
+          var returnChart3;
+
+          
+          var getString = document.getElementById('searchBox');
+          getString.addEventListener("keyup", function(event){
+
+            if(event.key === 13){
+              event.preventDefault();
+              document.getElementById("searchConfirm").click();
+            }
+          }) 
+
+          function launchSearch(){
+            var getString1 = document.getElementById('searchBox').value;
+            let getCity = getString1.search(',');
+            let city = getString1.substring(0,getCity);
+            let country = getString1.substring(getCity, getString1.length);
+           lookUpByCity(city,country);  
+          }
+
           var passBack = "";
 
           var options = {
@@ -12,6 +37,24 @@
               timeout: 5000,
               maximumAge: 0
             };
+
+            async function lookUpByCity(city,country){
+                  let URL = "https://api.openweathermap.org/data/2.5/weather?q=" +city+"&appid="+API_KEY;
+                  let response = await fetch(URL);
+                  let data = await response.json();
+                  reverseLookup2(data.coord); 
+                  if(response.status >= 400){
+                    alert("Error: Location not Found. Try again");
+                    throw new Error(response.statusText);
+                  }
+                  else{
+                      let URL2 = "https://api.openweathermap.org/data/2.5/onecall?lat="+data.coord.lat+"&lon="+data.coord.lon+"&exclude =alerts,minutely&units=metric&appid="+API_KEY;
+                      let response2 = await fetch(URL2);
+                      let data2 = await response2.json();
+                     displayWeather(data2);
+                  }  
+                  
+            }
           
             async function success(pos) {
               var crd = pos.coords;
@@ -29,14 +72,22 @@
               let data = await response.json();
               returnReverseLookup(data);
             }
+
+            async function reverseLookup2(data2){
+              var API_KEY2 = "pk.e34c1833ce4d63ee886cb101d24aa0f1";
+              let URL = "https://us1.locationiq.com/v1/reverse.php?key="+API_KEY2+"&lat="+ data2.lat+"&lon="+data2.lon+"&format=json"
+              let response = await fetch(URL);
+              let data = await response.json();
+              returnReverseLookup(data);
+            }
       
   
-            function returnReverseLookup(data){
+             function returnReverseLookup(data){
               console.log(data);
-              passBack =  data.address.city +", "+ data.address.country;;
+              passBack =  data.address.city +", "+ data.address.country;
             }
   
-            function displayWeather(data){
+             function displayWeather(data){
               let mani = document.querySelector("#results");
               let d = new Date(data.current.sunrise * 1000).toLocaleTimeString("en-US");
               let d2 =  new Date(data.current.sunset * 1000).toLocaleTimeString("en-US");
@@ -90,7 +141,7 @@
 
          
 
-            function display24(passed){
+             function display24(passed){
               datas = passed.hourly;
               let d = '';
               let mani = document.querySelector("#results-24");
@@ -125,9 +176,13 @@
 
           function display7Day(passed){
             data = passed.daily;
-            createChartProb(data);
-            createChartMinMax(data);
-            createChartCloud(data);
+            if(loaded === true){
+              killAllCharts(returnChart1,returnChart2,returnChart3);
+            }
+            returnChart1 = createChartProb(data);
+            returnChart2 =createChartMinMax(data);
+            returnChart3 = createChartCloud(data);
+
             let mani = document.querySelector("#results-7D");
               mani. innerHTML = '';
               let today = new Date();
@@ -159,7 +214,7 @@
                 `;
                 today.setDate(today.getDate() +1);
               }
-
+                loaded = true;
           }
 
 
@@ -174,9 +229,10 @@
           
             document.querySelector('#locateBtn').addEventListener('click', locate);
         
-     
+            
+    
             function createChartProb(datas){
-
+            
               const labels = [
               'Sunday','Monday','Tuesday','Wednesday', 'Thursday','Friday', 'Saturday'
               ];
@@ -198,15 +254,17 @@
                 data: data,
                 options: {}
               };
-              
               var myChart = new Chart(
-              document.getElementById('myChart'),
-               config
-              );
+                document.getElementById('myChart'),
+                 config
+                );
+
+                return myChart;
 
             }
 
             function createChartMinMax(datas){
+               
               var ctx = document.getElementById('myChart2').getContext('2d');
               const data = {
                 
@@ -246,12 +304,15 @@
                 }
               };
               
-              var myChart = new Chart(ctx,{
+              var myChart2 = new Chart(ctx,{
                 data:data
                 ,options:{}
                 },
               config
               );
+
+              return myChart2;
+              
             }
 
             function createChartCloud(datas){
@@ -278,12 +339,21 @@
                 options: {}
               };
               
-              var myChart = new Chart(
+              var myChart3 = new Chart(
               document.getElementById('myChart3'),
                config
               );
 
+              return myChart3;
+
             }
+
+        function killAllCharts(chart1, chart2,chart3){
+          chart1.destroy();
+          chart2.destroy();
+          chart3.destroy();
+          loaded = false;
+        }
 
 
         
