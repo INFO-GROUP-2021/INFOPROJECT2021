@@ -84,7 +84,13 @@
   
              function returnReverseLookup(data){
               console.log(data);
-              passBack =  data.address.city +", "+ data.address.country;
+              if(data.address.city === null){
+                passBack =  data.address.town +", "+ data.address.country;
+              }
+              else{
+                passBack =  data.address.city +", "+ data.address.country;
+              }
+              
             }
   
              function displayWeather(data){
